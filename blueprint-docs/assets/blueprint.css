@@ -49,32 +49,36 @@
 :root[data-theme="light"] {
   color-scheme: light;
 
-  /* background ramp, lightest page to deepest surface — warm off-white, not white */
-  --bg-sunken: #eae5d8;
-  --bg: #f4f1e9;
-  --bg-tint: #efebe0;
-  --bg-inset: #ebe6d9;
-  --bg-hover: #e2dccc;
-  --bg-raised: #dbd4c2;
-  --bg-translucent: rgba(244, 241, 233, .96);
-  --track: #e6e1d2;
+  /* background ramp, lightest page to deepest surface — warm greige paper,
+     not white. Separation from #fff comes from lightness (~1.28:1), not
+     hue: subtle off-whites flatten to pure white on cool-white-point
+     external monitors, but a genuinely darker page survives any display.
+     Don't lighten it back toward #f4f1e9. */
+  --bg-sunken: #ddd6c8;
+  --bg: #e8e3d9;
+  --bg-tint: #e3ddd1;
+  --bg-inset: #dfd8ca;
+  --bg-hover: #d6cebc;
+  --bg-raised: #cdc4af;
+  --bg-translucent: rgba(232, 227, 217, .96);
+  --track: #dbd4c4;
 
   --fg: #3d3b35;
   --fg-strong: #14130f;
-  --fg-muted: #6a675f;
-  --fg-faint: #767268;
+  --fg-muted: #5c5a52;
+  --fg-faint: #67635a;
 
-  --line: #dedad0;
-  --line-strong: #b0aca1;
+  --line: #d0c9b8;
+  --line-strong: #a09a8a;
 
-  --accent: #3f52c9;
-  --ok: #2c7a4b;
-  --warn: #8a5d0f;
-  --danger: #b3352c;
+  --accent: #3849b8;
+  --ok: #256a41;
+  --warn: #7d540d;
+  --danger: #a52f27;
 
   --series-1: #6a739b;
   --series-2: #4f5d9e;
-  --series-3: #3f52c9;
+  --series-3: #3849b8;
   --series-4: #6f6890;
   --on-fill: #fff;
   --on-accent: #fff;
