@@ -39,7 +39,9 @@ Both palettes ship in the sheet and both are load-bearing — the document is no
 
 The prose is as much of the style as the CSS.
 
-- Lead with the number. "12.478 s — 82.9% of that path — was the eager module graph," not "module loading was slow."
+- **Explain simply.** It takes no skill to explain something in a complicated way; the skill is explaining a complicated thing simply. Plain words, short sentences, one idea per sentence, jargon expanded the first time it appears. Complexity in the subject never excuses complexity in the prose: if a sentence needs a second read, rewrite it.
+- Lead with the number. "12.478 s (82.9% of that path) was the eager module graph," not "module loading was slow."
+- **No em dashes**, anywhere in the document. Where one tempts you, use a comma, a colon, a period, or parentheses.
 - `<strong>` is for load-bearing figures and verdicts, not for enthusiasm.
 - Every document opens: `.kicker` (3 dot-separated status words) → `h1` (a full clause, not a noun phrase) → `.lede` (the whole finding in 3–5 sentences, numbers included).
 - State confidence and non-goals explicitly. Say what was not measured.
@@ -96,24 +98,48 @@ If a document has neither metrics nor 3+ headings, the rail carries only the Doc
 
 Never present a code change as two side-by-side `pre` blocks or a plain unified patch dumped in a `pre`.
 
-- **Default: `@pierre/diffs`** ([diffs.com](https://diffs.com)) — import at runtime from a CDN, render into an empty `.diff-block`:
+- **Default: `@pierre/diffs`** ([diffs.com](https://diffs.com)) — import at runtime from a CDN, render into an empty `.diff-block`. Pierre has two layout styles, `split` (side by side) and `unified` (stacked); default to `split` unless the change is trivially short, and give every Pierre diff a `.diff-toggle` in its title bar so the reader can switch. Always set `overflow: "wrap"` — a diff that scrolls sideways hides the change.
 
   ```html
   <div class="diff-block" id="diff-1">
-    <p class="diff-title">path/to/file.ts · what changed, in one clause</p>
+    <p class="diff-title">path/to/file.ts · what changed, in one clause
+      <button class="diff-toggle" type="button">STACKED</button></p>
   </div>
   <script type="module">
     import { FileDiff } from "https://esm.sh/@pierre/diffs@1";
-    const diff = new FileDiff({ theme: { dark: "pierre-dark", light: "pierre-light" } });
+    const diff = new FileDiff({
+      theme: { dark: "pierre-dark", light: "pierre-light" },
+      diffStyle: "split",
+      overflow: "wrap",
+    });
     diff.render({
       oldFile: { name: "path/to/file.ts", contents: OLD },
       newFile: { name: "path/to/file.ts", contents: NEW },
       containerWrapper: document.getElementById("diff-1"),
     });
+    document.querySelector("#diff-1 .diff-toggle").addEventListener("click", (e) => {
+      const next = diff.options.diffStyle === "split" ? "unified" : "split";
+      diff.setOptions({ ...diff.options, diffStyle: next });
+      diff.rerender();
+      e.currentTarget.textContent = next === "split" ? "STACKED" : "SPLIT";
+    });
   </script>
   ```
 
-  The exact option names move between versions — if this errors, check the vanilla-JS docs at diffs.com rather than hand-rolling a workaround. Match the renderer to the page theme, and re-render (or reload) on theme toggle if the two disagree visibly.
+  Like the theme toggle, the button reads out the layout you'd switch *to*. The exact option names move between versions — if this errors, check the vanilla-JS docs at diffs.com rather than hand-rolling a workaround. Match the renderer to the page theme, and re-render (or reload) on theme toggle if the two disagree visibly.
+- **Annotations** — Pierre renders a comment block against a specific line, and that is where "why this line changed" prose belongs: on the line, not in a paragraph three blocks away. However it is optional, not every diff needs one; reach for it when the explanation is about one line rather than the whole change. Pass `lineAnnotations` to `render()` and a `renderAnnotation` callback in the options that returns a `.diff-note` element (the sheet styles it as a `//` code comment):
+
+  ```js
+  const diff = new FileDiff({
+    /* ...options as above... */
+    renderAnnotation: (a) =>
+      Object.assign(document.createElement("p"), { className: "diff-note", textContent: a.metadata }),
+  });
+  diff.render({
+    /* ...files as above... */
+    lineAnnotations: [{ side: "additions", lineNumber: 12, metadata: "why this line changed, in one clause" }],
+  });
+  ```
 - **Fallback: `pre.diff`** — only when the document must open with no network (air-gapped review, email attachment). One `<span>` per line, classed `add` / `del` / `hunk`, exactly as in the skeleton's Evidence section. Say in the caption that the diff is abridged if it is.
 
 ## Charts
@@ -150,7 +176,7 @@ For structure rather than quantity — request paths, topologies, before/after a
 ## Checklist
 
 - [ ] Single file, no external assets beyond the font `@import` and (diffs only) the `@pierre/diffs` import.
-- [ ] Every code change rendered through `.diff-block` — Pierre by default, `pre.diff` fallback only when offline is required. If Pierre is used, open the file and confirm the diff actually rendered in both themes.
+- [ ] Every code change rendered through `.diff-block` — Pierre by default (split layout, `overflow: "wrap"`, `.diff-toggle` in the title bar), `pre.diff` fallback only when offline is required. If Pierre is used, open the file and confirm the diff rendered in both themes, the toggle switches between split and stacked, and long lines wrap instead of scrolling.
 - [ ] Comparisons/trends of 3+ numbers are charted, not left as prose.
 - [ ] Every chart mark has a `data-tip`; hover one and confirm the tooltip follows the pointer. On a line chart, also confirm the hover guide draws and its dot lands on the polyline (`data-guide` y matches the vertex).
 - [ ] Every table/chart has a `.source` line; the document ends with a `.colophon`.
