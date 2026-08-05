@@ -107,8 +107,10 @@ Never present a code change as two side-by-side `pre` blocks or a plain unified 
   </div>
   <script type="module">
     import { FileDiff } from "https://esm.sh/@pierre/diffs@1";
+    const pageTheme = () => document.documentElement.dataset.theme === "light" ? "light" : "dark";
     const diff = new FileDiff({
       theme: { dark: "pierre-dark", light: "pierre-light" },
+      themeType: pageTheme(),
       diffStyle: "split",
       overflow: "wrap",
     });
@@ -117,6 +119,11 @@ Never present a code change as two side-by-side `pre` blocks or a plain unified 
       newFile: { name: "path/to/file.ts", contents: NEW },
       containerWrapper: document.getElementById("diff-1"),
     });
+    new MutationObserver(() => {
+      if (diff.options.themeType === pageTheme()) return;
+      diff.setOptions({ ...diff.options, themeType: pageTheme() });
+      diff.rerender();
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
     document.querySelector("#diff-1 .diff-toggle").addEventListener("click", (e) => {
       const next = diff.options.diffStyle === "split" ? "unified" : "split";
       diff.setOptions({ ...diff.options, diffStyle: next });
@@ -126,7 +133,7 @@ Never present a code change as two side-by-side `pre` blocks or a plain unified 
   </script>
   ```
 
-  Like the theme toggle, the button reads out the layout you'd switch *to*. The exact option names move between versions — if this errors, check the vanilla-JS docs at diffs.com rather than hand-rolling a workaround. Match the renderer to the page theme, and re-render (or reload) on theme toggle if the two disagree visibly.
+  Like the theme toggle, the button reads out the layout you'd switch *to*. The exact option names move between versions — if this errors, check the vanilla-JS docs at diffs.com rather than hand-rolling a workaround. **`themeType` and the observer are mandatory**: Pierre's `themeType` defaults to `"system"` (the OS `prefers-color-scheme`), so without them the diff ignores the page's `data-theme` toggle and renders in whatever mode the reader's OS is in.
 - **Annotations** — Pierre renders a comment block against a specific line, and that is where "why this line changed" prose belongs: on the line, not in a paragraph three blocks away. However it is optional, not every diff needs one; reach for it when the explanation is about one line rather than the whole change. Pass `lineAnnotations` to `render()` and a `renderAnnotation` callback in the options that returns a `.diff-note` element (the sheet styles it as a `//` code comment):
 
   ```js
