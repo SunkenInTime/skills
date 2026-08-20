@@ -84,6 +84,13 @@ A number a reader cannot trace is an opinion.
 
 The skeleton's script appends a hover-visible `§` to every `h2`/`h3`; clicking it navigates and copies the absolute link. This is why every heading must have an `id` — sections get shared in chat, so their links must be grabbable.
 
+## Links
+
+A URL the reader must copy by hand is a broken link.
+
+- Every URL shown in the document is a live hyperlink, never bare unlinked text. When the URL itself is the information, make the URL the link text; otherwise link the name and keep the URL in the `href`.
+- The same goes for references to PRs, issues, commits, and tickets: "PR #482" links to the PR, a commit hash links to the commit, a ticket ID links to the tracker. A reference the reader cannot click is a lookup delegated to them.
+
 ## Rail
 
 The rail must earn its 13rem. The skeleton's script already does two things — keep them working:
@@ -191,6 +198,7 @@ For structure rather than quantity — request paths, topologies, before/after a
 - [ ] Every artifact the document mentions is linked, appears in the rail's Artifacts block, and resolves at the hosted location (upload the files with the document).
 - [ ] Numbers carry units and consistent precision; deltas state direction and base.
 - [ ] Every `h2`/`h3` has an `id` — the rail outline and reading progress are generated from them by the skeleton's script.
+- [ ] Every URL and every PR/issue/commit/ticket reference is a hyperlink — nothing the reader must copy or look up by hand.
 - [ ] `<title>` set; `.kicker` present; rail auto-fills.
 - [ ] Zero `border-radius` on blocks, zero `box-shadow`, zero non-hatch gradients.
 - [ ] Every block element bleeds to the column rules.
