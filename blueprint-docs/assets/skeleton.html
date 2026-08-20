@@ -91,7 +91,7 @@
 
           <blockquote class="callout"><p><strong>Recommended decision:</strong> the one action this document argues for, and why it beats the alternatives.</p></blockquote>
 
-          <p>Body prose. Inline <code>identifiers</code> in mono.</p>
+          <p>Body prose. Inline <code>identifiers</code> in mono. A domain term's first occurrence links to its glossary row and carries the definition as a hover tip: provisioned with <a class="term" href="#term-terraform" data-tip="Terraform — HashiCorp's infrastructure-as-code tool: declare resources in config files, apply to create them.">Terraform</a>; later occurrences of Terraform stay plain.</p>
         </section>
 
         <section>
@@ -169,6 +169,17 @@ command --flag value</code></pre>
 command --that-produced --the-data</code></pre>
             <p class="source">Captured 2026-07-28 · full output, nothing truncated.</p>
           </details>
+        </section>
+
+        <section>
+          <h2 id="glossary">Glossary</h2>
+          <dl class="glossary">
+            <div class="gloss-row" id="term-terraform">
+              <dt>Terraform</dt>
+              <dd>HashiCorp's infrastructure-as-code tool: declare resources in config files, apply to create them. <a href="https://developer.hashicorp.com/terraform">Docs</a>.</dd>
+            </div>
+            <!-- …one row per domain term; skip the section entirely under 4 terms. -->
+          </dl>
         </section>
 
         <section>
@@ -350,6 +361,13 @@ command --that-produced --the-data</code></pre>
     document.querySelectorAll(".diagram").forEach((diagram) => {
       diagram.addEventListener("mousemove", moveTip);
       diagram.addEventListener("mouseleave", () => { chartTip.style.visibility = "hidden"; hideGuides(); });
+    });
+
+    /* Glossary terms reuse the tooltip: hover shows the definition in
+       place, click jumps to the full glossary row. */
+    document.querySelectorAll("a.term[data-tip]").forEach((term) => {
+      term.addEventListener("mousemove", moveTip);
+      term.addEventListener("mouseleave", () => { chartTip.style.visibility = "hidden"; });
     });
 
     const progress = document.querySelector(".reading-progress-fill");

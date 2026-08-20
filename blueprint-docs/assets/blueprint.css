@@ -242,6 +242,21 @@ details.appendix > summary:hover, details.primer > summary:hover { background: v
 details.appendix pre, details.appendix .table-wrap, details.primer pre, details.primer .table-wrap { margin: 0; border-block-end: 0; border-top: 1px solid var(--line); }
 details.appendix p, details.appendix .source, details.primer p, details.primer ul, details.primer ol { margin: .6rem var(--pad) .9rem; }
 
+/* ---- glossary: domain-term definitions before the self-check.
+   A term's first occurrence in body prose is an a.term linking to its row;
+   the definition rides data-tip so hover answers in place (the skeleton's
+   tooltip script binds .term). Dotted underline, not the accent link
+   style: the mark says "definition available", not "navigation". ---- */
+a.term { color: inherit; cursor: help; text-decoration: underline dotted var(--fg-faint); text-decoration-thickness: 1px; text-underline-offset: .22em; }
+a.term:hover, a.term:focus-visible { color: var(--fg-strong); text-decoration-color: var(--accent); }
+dl.glossary { margin: 1.4rem calc(-1 * var(--pad)); border-block: 1px solid var(--line); background: var(--bg-tint); font-size: .85rem; }
+.gloss-row { display: grid; grid-template-columns: 10rem 1fr; gap: 1rem; padding: .55rem var(--pad); scroll-margin-top: 5rem; }
+.gloss-row + .gloss-row { border-top: 1px solid var(--line); }
+.gloss-row:target { background: var(--accent-soft); }
+.gloss-row dt { margin: 0; color: var(--fg-strong); font: 500 .78rem/1.7 var(--mono); }
+.gloss-row dd { margin: 0; color: var(--fg-muted); max-width: 62ch; }
+@media (max-width: 699px) { .gloss-row { grid-template-columns: 1fr; gap: .15rem; } }
+
 /* ---- quiz: the ungraded five-question self-check before the colophon.
    First click on an option answers the question: the pick is marked right
    or wrong, the correct option is revealed, the why appears, and the

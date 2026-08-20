@@ -62,6 +62,7 @@ Reach for these in roughly this order; a document need not use all of them.
 - `.chip` (+ `.ok`/`.warn`/`.bad`/`.accent`) — inline uppercase markers for workflow states (<code>DRAFT</code>, <code>VERIFIED</code>, <code>BLOCKED</code>), confidence levels, and data properties (<code>ESTIMATED</code>, <code>LEFT-CENSORED</code>, <code>SAMPLED</code>). A chip states a fact about status or data; it never decorates.
 - `details.primer` — collapsed, skippable background between the lede and the first section. See **Comprehension**.
 - `details.appendix` — collapsed raw evidence at the document foot. See **Provenance**.
+- `.glossary` — definitions of the document's domain terms, linked from each term's first occurrence. See **Comprehension**.
 - `.quiz` — the five-question self-check that ends every document. See **Comprehension**.
 - `.colophon` — the last element of every document.
 
@@ -89,6 +90,7 @@ A document is a teaching instrument, not just a record: the reader should come a
 - **Every document ends with a `.quiz`**, directly before the `.colophon`: five multiple-choice questions, medium difficulty, on the document's substance — answering requires understanding, with no gotchas and no trivia. Clicking an option marks it right or wrong, reveals the correct answer, and shows a one-or-two-sentence why. The quiz is an **ungraded self-check** the reader answers or skips freely: no score, no tally, no gate, no nagging. The questions exist to show the reader what didn't stick.
 - **`details.primer`** — collapsed background between the lede and the first section: teach a new reader up to the point where the first section makes sense (the system, the terms, the prior state); everyone else skips it unopened. Collapsed is the resting state — background the reader must open belongs in the body instead.
 - **Intuition before details.** Ahead of a dense section, give the essence with one concrete example on toy data. A reader who has felt the mechanism can follow the measurement.
+- **`.glossary`** — when the document leans on domain terms a reader may not know (vendor products, internal system names, acronyms), define them in a **Glossary** section directly before the self-check. Each entry row carries an `id`; the term's **first occurrence in body prose** becomes an `a.term` link to that row, carrying the definition in `data-tip` so hover answers in place and click jumps to the full entry. First occurrence only — later occurrences stay plain, and a reader who lands mid-page reaches the glossary through the rail outline. Mark terms in body prose only: headings, code, and the glossary itself stay unmarked. Each definition is one or two plain sentences, linking the canonical external doc when one exists. Three terms or fewer: define them in prose and skip the apparatus.
 
 ## Anchors
 
@@ -208,6 +210,7 @@ For structure rather than quantity — request paths, topologies, before/after a
 - [ ] Every chart mark has a `data-tip`; hover one and confirm the tooltip follows the pointer. On a line chart, also confirm the hover guide draws and its dot lands on the polyline (`data-guide` y matches the vertex).
 - [ ] Every table/chart has a `.source` line; the document ends with a `.colophon`.
 - [ ] A five-question `.quiz` sits directly before the colophon; clicking an option marks it, reveals the correct answer, and shows the why. It reads as a self-check, never a gate.
+- [ ] Domain terms (4+) are defined in a `.glossary`; each links from its first body occurrence only, hover shows the definition, and headings/code stay unmarked.
 - [ ] Raw evidence is present but collapsed in `details.appendix`, not dumped in the body or dropped.
 - [ ] Every artifact the document mentions is linked, appears in the rail's Artifacts block, and resolves at the hosted location (upload the files with the document).
 - [ ] Numbers carry units and consistent precision; deltas state direction and base.
