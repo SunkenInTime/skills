@@ -73,6 +73,13 @@
         <h1 id="top">A full clause stating the finding, not a noun phrase</h1>
         <p class="lede">Three to five sentences carrying the entire result, numbers included, with <strong>the load-bearing figures</strong> in strong.</p>
 
+        <!-- Skippable background: teaches a new reader up to the point where
+             the first section makes sense; everyone else skips it unopened. -->
+        <details class="primer">
+          <summary>Primer · background for readers new to the system</summary>
+          <p>What the system is, the terms the document uses, and the prior state — enough that the first section lands without outside reading.</p>
+        </details>
+
         <section>
           <h2 id="executive-summary">Executive summary</h2>
 
@@ -162,6 +169,24 @@ command --flag value</code></pre>
 command --that-produced --the-data</code></pre>
             <p class="source">Captured 2026-07-28 · full output, nothing truncated.</p>
           </details>
+        </section>
+
+        <section>
+          <h2 id="self-check">Self-check</h2>
+          <p>Five questions on the substance above. Ungraded — skip freely, or answer to find out what stuck.</p>
+          <div class="quiz">
+            <p class="quiz-title">Self-check · ungraded</p>
+            <div class="quiz-q">
+              <p class="quiz-stem">1. Which segment dominated the total, and by how much?</p>
+              <div class="quiz-opts">
+                <button class="quiz-opt" type="button">Phase one, at 20.3%</button>
+                <button class="quiz-opt" type="button" data-correct>The dominant segment, at 63.9%</button>
+                <button class="quiz-opt" type="button">The handoff, at 8.1%</button>
+              </div>
+              <p class="quiz-why" hidden>The dominant segment carried 1,380.390 ms of the 2.160 s total — 63.9%. Phase one and the handoff together cover under a third.</p>
+            </div>
+            <!-- …four more .quiz-q blocks: a real document ships five. -->
+          </div>
         </section>
 
         <p class="colophon">Generated 2026-07-28 · by whom or what · inputs (commit, data window, environment) · revision v1</p>
@@ -348,6 +373,22 @@ command --that-produced --the-data</code></pre>
     addEventListener("scroll", updateScrollState, { passive: true });
     addEventListener("resize", updateProgress, { passive: true });
     updateScrollState();
+
+    /* Self-check quiz: ungraded by design — no score is kept. The first
+       click answers a question: mark the pick, reveal the correct option
+       and the why, then lock that question. */
+    document.querySelectorAll(".quiz-q").forEach((question) => {
+      question.querySelectorAll(".quiz-opt").forEach((option) => {
+        option.addEventListener("click", () => {
+          if (question.classList.contains("answered")) return;
+          question.classList.add("answered");
+          option.classList.add(option.hasAttribute("data-correct") ? "is-right" : "is-wrong");
+          question.querySelector(".quiz-opt[data-correct]")?.classList.add("is-right");
+          const why = question.querySelector(".quiz-why");
+          if (why) why.hidden = false;
+        });
+      });
+    });
 
     document.getElementById("copy-link").addEventListener("click", async (event) => {
       const button = event.currentTarget;

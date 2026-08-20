@@ -231,15 +231,36 @@ pre.diff .hunk { color: var(--accent); }
 .chip.bad { color: var(--danger); border-color: color-mix(in srgb, var(--danger) 45%, transparent); }
 .chip.accent { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 45%, transparent); }
 
-/* ---- appendix: collapsed raw evidence ---- */
-details.appendix { margin: 1.4rem calc(-1 * var(--pad)); border-block: 1px solid var(--line); background: var(--bg-tint); }
-details.appendix > summary { padding: .6rem var(--pad); cursor: pointer; color: var(--fg-muted); font: 500 .68rem/1.5 var(--mono); letter-spacing: .14em; text-transform: uppercase; list-style: none; }
-details.appendix > summary::-webkit-details-marker { display: none; }
-details.appendix > summary::before { content: "+ "; color: var(--accent); }
-details.appendix[open] > summary::before { content: "− "; }
-details.appendix > summary:hover { background: var(--bg-hover); color: var(--fg-strong); }
-details.appendix pre, details.appendix .table-wrap { margin: 0; border-block-end: 0; border-top: 1px solid var(--line); }
-details.appendix p, details.appendix .source { margin: .6rem var(--pad) .9rem; }
+/* ---- collapsed details: appendix (raw evidence at the foot) and
+   primer (skippable background between the lede and the first section) ---- */
+details.appendix, details.primer { margin: 1.4rem calc(-1 * var(--pad)); border-block: 1px solid var(--line); background: var(--bg-tint); }
+details.appendix > summary, details.primer > summary { padding: .6rem var(--pad); cursor: pointer; color: var(--fg-muted); font: 500 .68rem/1.5 var(--mono); letter-spacing: .14em; text-transform: uppercase; list-style: none; }
+details.appendix > summary::-webkit-details-marker, details.primer > summary::-webkit-details-marker { display: none; }
+details.appendix > summary::before, details.primer > summary::before { content: "+ "; color: var(--accent); }
+details.appendix[open] > summary::before, details.primer[open] > summary::before { content: "− "; }
+details.appendix > summary:hover, details.primer > summary:hover { background: var(--bg-hover); color: var(--fg-strong); }
+details.appendix pre, details.appendix .table-wrap, details.primer pre, details.primer .table-wrap { margin: 0; border-block-end: 0; border-top: 1px solid var(--line); }
+details.appendix p, details.appendix .source, details.primer p, details.primer ul, details.primer ol { margin: .6rem var(--pad) .9rem; }
+
+/* ---- quiz: the ungraded five-question self-check before the colophon.
+   First click on an option answers the question: the pick is marked right
+   or wrong, the correct option is revealed, the why appears, and the
+   question locks. No score is kept anywhere. ---- */
+.quiz { margin: 1.4rem calc(-1 * var(--pad)); border-block: 1px solid var(--line); background: var(--bg-tint); }
+.quiz-title { margin: 0; padding: .6rem var(--pad); border-bottom: 1px solid var(--line); color: var(--fg-muted); font: 500 .68rem/1.5 var(--mono); letter-spacing: .14em; text-transform: uppercase; }
+.quiz-q { padding: .95rem var(--pad) 1.15rem; }
+.quiz-q + .quiz-q { border-top: 1px solid var(--line); }
+.quiz-stem { margin: 0 0 .65rem; color: var(--fg-strong); }
+.quiz-opts { display: grid; gap: .45rem; max-width: 72ch; }
+.quiz-opt { padding: .45rem .7rem; border: 1px solid var(--line); background: var(--bg-inset); color: var(--fg); cursor: pointer; text-align: left; font: 400 .78rem/1.6 var(--mono); }
+.quiz-q:not(.answered) .quiz-opt:hover, .quiz-q:not(.answered) .quiz-opt:focus-visible { background: var(--bg-hover); color: var(--fg-strong); }
+.quiz-q.answered .quiz-opt { cursor: default; color: var(--fg-faint); }
+.quiz-q.answered .quiz-opt.is-right { color: var(--ok); border-color: color-mix(in srgb, var(--ok) 45%, transparent); }
+.quiz-q.answered .quiz-opt.is-wrong { color: var(--danger); border-color: color-mix(in srgb, var(--danger) 45%, transparent); }
+.quiz-opt.is-right::before { content: "✓ "; }
+.quiz-opt.is-wrong::before { content: "✕ "; }
+.quiz-why { margin: .65rem 0 0; max-width: 72ch; color: var(--fg-muted); font-size: .8rem; line-height: 1.6; }
+.quiz-why::before { content: "// "; color: var(--accent); font-family: var(--mono); }
 
 /* ---- colophon: document provenance footer ---- */
 .colophon { margin: 2.5rem calc(-1 * var(--pad)) 0; padding: .8rem var(--pad) 0; border-top: 1px solid var(--line); color: var(--fg-faint); font: 400 .68rem/1.7 var(--mono); }

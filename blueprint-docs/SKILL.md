@@ -60,7 +60,9 @@ Reach for these in roughly this order; a document need not use all of them.
 - `.caption` — environment, method, or caveat under a `pre` or diagram.
 - `.source` — one mono line under a table, chart, or `pre` naming where the data came from. See **Provenance**.
 - `.chip` (+ `.ok`/`.warn`/`.bad`/`.accent`) — inline uppercase markers for workflow states (<code>DRAFT</code>, <code>VERIFIED</code>, <code>BLOCKED</code>), confidence levels, and data properties (<code>ESTIMATED</code>, <code>LEFT-CENSORED</code>, <code>SAMPLED</code>). A chip states a fact about status or data; it never decorates.
+- `details.primer` — collapsed, skippable background between the lede and the first section. See **Comprehension**.
 - `details.appendix` — collapsed raw evidence at the document foot. See **Provenance**.
+- `.quiz` — the five-question self-check that ends every document. See **Comprehension**.
 - `.colophon` — the last element of every document.
 
 ## Numbers
@@ -79,6 +81,14 @@ A number a reader cannot trace is an opinion.
 - Every table, chart, and quoted figure gets a `.source` line naming the system, query, file, or command it came from — specific enough that someone could re-run it.
 - Raw evidence — full queries, unabridged output, long tables — goes in `details.appendix` at the foot, collapsed. In the body, show top-N rows and say in the `.source` line what was cut and by what rule.
 - Every document ends with a `.colophon`: when it was generated, by whom or what, from which inputs (commit, data window, environment), and its revision.
+
+## Comprehension
+
+A document is a teaching instrument, not just a record: the reader should come away understanding the work, able to participate in the next decision, not merely informed of this one's verdict.
+
+- **Every document ends with a `.quiz`**, directly before the `.colophon`: five multiple-choice questions, medium difficulty, on the document's substance — answering requires understanding, with no gotchas and no trivia. Clicking an option marks it right or wrong, reveals the correct answer, and shows a one-or-two-sentence why. The quiz is an **ungraded self-check** the reader answers or skips freely: no score, no tally, no gate, no nagging. The questions exist to show the reader what didn't stick.
+- **`details.primer`** — collapsed background between the lede and the first section: teach a new reader up to the point where the first section makes sense (the system, the terms, the prior state); everyone else skips it unopened. Collapsed is the resting state — background the reader must open belongs in the body instead.
+- **Intuition before details.** Ahead of a dense section, give the essence with one concrete example on toy data. A reader who has felt the mechanism can follow the measurement.
 
 ## Anchors
 
@@ -141,6 +151,7 @@ Never present a code change as two side-by-side `pre` blocks or a plain unified 
   ```
 
   Like the theme toggle, the button reads out the layout you'd switch *to*. The exact option names move between versions — if this errors, check the vanilla-JS docs at diffs.com rather than hand-rolling a workaround. **`themeType` and the observer are mandatory**: Pierre's `themeType` defaults to `"system"` (the OS `prefers-color-scheme`), so without them the diff ignores the page's `data-theme` toggle and renders in whatever mode the reader's OS is in.
+- **Literate order** — when a change spans several diffs, sequence them by concept, not by file path, and put one sentence of prose before each saying what to look for in it. The accumulated prose should read as the story of the change; the diffs are its illustrations.
 - **Annotations** — Pierre renders a comment block against a specific line, and that is where "why this line changed" prose belongs: on the line, not in a paragraph three blocks away. However it is optional, not every diff needs one; reach for it when the explanation is about one line rather than the whole change. Pass `lineAnnotations` to `render()` and a `renderAnnotation` callback in the options that returns a `.diff-note` element (the sheet styles it as a `//` code comment):
 
   ```js
@@ -159,6 +170,8 @@ Never present a code change as two side-by-side `pre` blocks or a plain unified 
 ## Charts
 
 Prefer a chart over prose or a table whenever the point *is* a comparison, trend, distribution, or share — three or more related numbers usually deserve one. A table answers "what are the values"; a chart answers "which one dominates" — pick by the question the section is asking, and don't do both for the same numbers unless the table adds columns the chart can't carry (interpretation, confidence).
+
+When the point is a **mechanism** rather than a quantity — an algorithm, a pipeline, a state machine — an interactive figure beats a static one: a stepper or scrubber that walks the real logic with its state visible at every step, inline vanilla JS, theme tokens only. A world too big for one figure is its own artifact: build it as a separate page and link it from the document so it lands in the rail's Artifacts block.
 
 ## Diagrams
 
@@ -194,6 +207,7 @@ For structure rather than quantity — request paths, topologies, before/after a
 - [ ] Comparisons/trends of 3+ numbers are charted, not left as prose.
 - [ ] Every chart mark has a `data-tip`; hover one and confirm the tooltip follows the pointer. On a line chart, also confirm the hover guide draws and its dot lands on the polyline (`data-guide` y matches the vertex).
 - [ ] Every table/chart has a `.source` line; the document ends with a `.colophon`.
+- [ ] A five-question `.quiz` sits directly before the colophon; clicking an option marks it, reveals the correct answer, and shows the why. It reads as a self-check, never a gate.
 - [ ] Raw evidence is present but collapsed in `details.appendix`, not dumped in the body or dropped.
 - [ ] Every artifact the document mentions is linked, appears in the rail's Artifacts block, and resolves at the hosted location (upload the files with the document).
 - [ ] Numbers carry units and consistent precision; deltas state direction and base.
