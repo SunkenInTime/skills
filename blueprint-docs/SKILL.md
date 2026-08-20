@@ -175,6 +175,8 @@ Prefer a chart over prose or a table whenever the point *is* a comparison, trend
 
 When the point is a **mechanism** rather than a quantity — an algorithm, a pipeline, a state machine — an interactive figure beats a static one: a stepper or scrubber that walks the real logic with its state visible at every step, inline vanilla JS, theme tokens only. A world too big for one figure is its own artifact: build it as a separate page and link it from the document so it lands in the rail's Artifacts block.
 
+**Steppers keep every step reachable.** A panel that swaps its content in place hides the previous step behind a button press, and change blindness means the reader cannot tell what just changed. Every step-through block therefore offers an expanded view — all steps laid out in order, the current one highlighted — either as its resting state (the PREV/NEXT controls just move the highlight and scroll) or behind a `SHOW ALL`/`STEP` toggle in the block's title bar, styled like the diff toggle. The test: the reader can re-read step 3 while sitting on step 4 without pressing anything that discards state.
+
 ## Diagrams
 
 Hand-author inline `<svg>`. Never a chart library, never a raster image — charts stay hand-drawn so every mark is a theme token.
