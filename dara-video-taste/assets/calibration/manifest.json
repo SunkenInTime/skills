@@ -1,0 +1,42 @@
+[
+  {
+    "file": "assets/calibration/loose-opening.mp4",
+    "source": "raw-cut-v01.mp4",
+    "source_start_seconds": 0,
+    "duration_seconds": 6.006,
+    "status": "Rejected for loose pauses, especially first transition.",
+    "source_note": "Original export name for provenance; bundled excerpt is the file field."
+  },
+  {
+    "file": "assets/calibration/tighter-opening.mp4",
+    "source": "raw-cut-v02.mp4",
+    "source_start_seconds": 0,
+    "duration_seconds": 6.006,
+    "status": "Revision illustrating tighter phrase handoffs; not blanket final approval.",
+    "source_note": "Original export name for provenance; bundled excerpt is the file field."
+  },
+  {
+    "file": "assets/calibration/midsection-revision.mp4",
+    "source": "raw-cut-v03.mp4",
+    "source_start_seconds": 15,
+    "duration_seconds": 10.01,
+    "status": "Connector and held-word revision; whole video later judged slow.",
+    "source_note": "Original export name for provenance; bundled excerpt is the file field."
+  },
+  {
+    "file": "assets/calibration/speed-1.2x.mp4",
+    "source": "pacing-v07-1.2x.mp4",
+    "source_start_seconds": 0,
+    "duration_seconds": 7.5075,
+    "status": "Comparison candidate, no selected speed recorded.",
+    "source_note": "Original export name for provenance; bundled excerpt is the file field."
+  },
+  {
+    "file": "assets/calibration/speed-1.3x.mp4",
+    "source": "pacing-v07-1.3x.mp4",
+    "source_start_seconds": 0,
+    "duration_seconds": 6.940267,
+    "status": "Comparison candidate, no selected speed recorded.",
+    "source_note": "Original export name for provenance; bundled excerpt is the file field."
+  }
+]
